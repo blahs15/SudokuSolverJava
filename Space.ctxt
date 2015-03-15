@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.params=num
+comment0.target=Space(int)
+comment1.params=n
+comment1.target=void\ setNum(int)
+comment2.params=
+comment2.target=int\ getNum()
+comment3.params=index\ canBe
+comment3.target=void\ setOption(int,\ boolean)
+comment4.params=
+comment4.target=boolean[]\ getOption()
+comment5.params=index
+comment5.target=boolean\ getOption(int)
+comment6.params=
+comment6.target=boolean\ isSolved()
+comment7.params=solved
+comment7.target=void\ setIsSolved(boolean)
+comment8.params=
+comment8.target=java.lang.String\ toString()
+numComments=9

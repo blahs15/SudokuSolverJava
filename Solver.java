@@ -1,0 +1,236 @@
+public class Solver
+   {
+   private Space[][] grid;
+   private Space[][] boxes;
+   boolean changed;
+   
+   
+   public Solver( int[][] puzzle )
+      {
+      grid = new Space[9][9];
+      boxes = new Space[9][9];
+      for( int r = 0; r < 9; r++ )
+         {
+         for( int c = 0; c < 9; c++ )
+            {
+            grid[r][c] = new Space( puzzle[r][c] );
+            } // end for
+         } // end for
+      createboxes();
+      } // end constructor Solver
+      
+   public void solve()
+      {
+      changed = true;
+      while( changed )
+         {
+         changed = false;
+         rowCheck();
+         colCheck();
+         boxCheck();
+         checkOptions();
+         } // end while
+         
+      printSolution();
+      } // end method solve
+   
+   
+   public void checkOptions()
+      {
+      for( int r = 0; r < 9; r++ )
+         {
+         for( int c = 0; c < 9; c++ )
+            {
+            boolean[] option = grid[r][c].getOption();
+            int optionCounter = 0;
+            boolean changeCheck = false;
+            for( int index = 0; index < 9; index++ )
+               {
+               if( option[index] && !grid[r][c].isSolved() )
+                  {
+                  grid[r][c].setNum( index );
+                  optionCounter++;
+                  changeCheck = true;
+                  } // end if
+               } // end for
+            if( optionCounter != 1 )
+               {
+               grid[r][c].setNum( -1 );
+               changeCheck = false;
+               } // end if
+            if( optionCounter == 1 )
+               {
+               grid[r][c].setIsSolved( true );
+               } // end if
+            if( changeCheck )
+               {
+               changed = true;
+               grid[r][c].setIsSolved( true );
+               } // end if
+            } // end for c
+         } // end for r
+      } // end method checkOptions
+   
+   
+   
+   
+   
+   
+   public void rowCheck()
+      {
+      for( int r = 0; r < 9; r++ )
+         {
+         for( int c = 0; c < 9; c++ )
+            {
+            for( int c2 = 0; c2 < 9; c2++ )
+               {
+               if( grid[r][c2].getNum() != 0 )
+                  {
+                  grid[r][c].setOption( grid[r][c2].getNum(), false );
+                  } // end if
+               } // end for c2
+            } // end for c
+         } // end for r
+      }
+   
+   public void colCheck()
+      {
+      for( int r = 0; r < 9; r++ )
+         {
+         for( int c = 0; c < 9; c++ )
+            {
+            for( int r2 = 0; r2 < 9; r2++ )
+               {
+               if( r2 != r && grid[r2][c].getNum() != 0 )
+                  {
+                  grid[r][c].setOption( grid[r2][c].getNum(), false );
+                  } // end if
+               } // end for r2
+            } // end for c
+         } // end for r
+      }
+   
+   public void boxCheck()
+      {
+      for( int b = 0; b < 9; b++ )
+         {
+         for( int index = 0; index < 0; index++ )
+            {
+            for( int index2 = 0; index2 < 9; index2++ )
+               {
+               if( index != index2 && grid[b][index2].getNum() != 0 )
+                  {
+                  grid[b][index].setOption( grid[b][index2].getNum(), false );
+                  } // end if
+               } // end for r2
+            } // end for
+         } // end for
+      } // end method boxCheck
+   
+   
+   
+   
+   
+   
+   public void createboxes()
+      {
+      for( int r = 0; r < 9; r++ )
+         {
+         for( int c = 0; c < 0; c++ )
+            {
+            int bNum = findBoxNum( r, c );
+            int index = findBoxIndex( r, c );
+            boxes[bNum][index] = grid[r][c];
+            } // end for
+         } // end for
+      } // end method createboxes
+   
+   public int findBoxNum( int r, int c )
+      {
+      int boxOption1;
+      int boxOption2;
+      int boxOption3;
+      if( r < 3 )
+         {
+         boxOption1 = 0;
+         boxOption2 = 1;
+         boxOption3 = 2;
+         } // end if
+      else if( r < 6 )
+         {
+         boxOption1 = 3;
+         boxOption2 = 4;
+         boxOption3 = 5;
+         } // end if
+      else
+         {
+         boxOption1 = 6;
+         boxOption2 = 7;
+         boxOption3 = 8;
+         } // end if
+      if( c < 3 )
+         {
+         return boxOption1;
+         } // end if
+      else if( c < 6 )
+         {
+         return boxOption2;
+         } // end if
+      else
+         {
+         return boxOption3;
+         } // end if
+      } // end method findBoxNum
+   
+   public int findBoxIndex( int r, int c )
+      {
+      int indexOption1;
+      int indexOption2;
+      int indexOption3;
+      if( r % 3 == 0 )
+         {
+         indexOption1 = 0;
+         indexOption2 = 1;
+         indexOption3 = 2;
+         } // end if
+      else if( r % 3 == 1 )
+         {
+         indexOption1 = 3;
+         indexOption2 = 4;
+         indexOption3 = 5;
+         } // end if
+      else
+         {
+         indexOption1 = 6;
+         indexOption2 = 7;
+         indexOption3 = 8;
+         } // end if
+      if( c % 3 == 0 )
+         {
+         return indexOption1;
+         } // end if
+      else if( c % 3 == 1 )
+         {
+         return indexOption2;
+         } // end if
+      else
+         {
+         return indexOption3;
+         } // end if
+      } // end method findBoxNum
+   
+   
+   
+   public void printSolution()
+      {
+      for( int r = 0; r < 9; r++ )
+         {
+         for( int c = 0; c < 9; c++ )
+            {
+            System.out.print( grid[r][c] + " " );
+            } // end for
+         System.out.println();
+         } // end for
+      } // end method printSolution
+   
+   } // end class Solver

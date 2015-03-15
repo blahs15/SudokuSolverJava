@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.params=puzzle
+comment0.target=Solver(int[][])
+comment1.params=
+comment1.target=void\ solve()
+comment2.params=
+comment2.target=void\ checkOptions()
+comment3.params=
+comment3.target=void\ rowCheck()
+comment4.params=
+comment4.target=void\ colCheck()
+comment5.params=
+comment5.target=void\ boxCheck()
+comment6.params=
+comment6.target=void\ createboxes()
+comment7.params=r\ c
+comment7.target=int\ findBoxNum(int,\ int)
+comment8.params=r\ c
+comment8.target=int\ findBoxIndex(int,\ int)
+comment9.params=
+comment9.target=void\ printSolution()
+numComments=10
